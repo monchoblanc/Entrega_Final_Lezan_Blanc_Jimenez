@@ -3,10 +3,17 @@
 
 {% block titulo %}
 <h1 class="mb-5">ACCOUNTS</h1>
+<h2>{{ mensaje }}</h2>
+
 {% endblock %}
 
 {% block que_cambia %}
-<h1>{{ mensaje }}</h1>
+
+{% if not request.user.is_authenticated %}
+<p action="{% url 'logout' %}" method="POST" >{% csrf_token %}
+</p>
+{% endif %}
+
 <h2>{{ usuario }}</h2>
 
 {% endblock %}

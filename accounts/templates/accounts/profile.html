@@ -2,26 +2,33 @@
 {% load static %}
 {% block titulo %}
 <h1>{{ mensaje }}</h1>
-<h2 class="mb-5">{{ user }}, TU PERFIL:</h2>
+<h2 class="mb-5">TU PERFIL:</h2>
+
 {% endblock %}
 
 {% block que_cambia %} 
+
+<!--para q el boton eliminar usuario tenga una advertencia:-->
+<script type="text/javascript">
+    function conf()
+    {
+    var con=confirm("seguro queres eliminar tu usuario???");
+    }
+    </script>
 <body>
-  
-      
-    <form action="{% url 'ver_perfil' %}" method="POST">{% csrf_token %}
-    
-        <table>
-            
-            {{ user_form.as_table }}
-            {{ perfil_form.as_table }}
-        </table>
-        
-        
-    </form>
-    <!--le dejo el  {{ mensaje }} por si me sirve en algun momento.-->
+            <p>USUARIO: {{ perfil.user }}</p>
+            <p>DESCRIPCION: {{ perfil.descripcion }}</p>
+            <p>LINK: {{ perfil.link }}</p>
+            <p> FOTO DE PERFIL: </p>
+            {% if perfil.imagen %}
+            <p> <img height='80px' src="{{ perfil.imagen.url }}" alt="imagen de perfil" /></p>
+            {% else %}
+            <p>TODAVIA NO CARGASTE TU IMAGEN</p>
+            {% endif %}
+    </form> 
     <a  class="btn btn-warning" href="{% url 'update_perfil' %}">EDITAR PERFIL</a> 
-    <a  class="btn btn-danger" href="{% url 'deleteUser' user %}">ELIMINAR MI USUARIO</a> 
+    <a  class="btn btn-danger" onClick="conf()" href="{% url 'deleteUser' user %}">ELIMINAR MI USUARIO</a> 
+    <head>
 
 </body>
 
